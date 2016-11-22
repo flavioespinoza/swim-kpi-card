@@ -1,0 +1,276 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-progress/paper-progress.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+<script src="../swim-polymer/recon-0.3.9.js"></script>
+<script src="../swim-polymer/swim-client-0.4.5.js"></script>
+
+<script src="../d3/d3.js"></script>
+<script src="../c3/c3.js"></script>
+<script src="../lodash/lodash.js"></script>
+
+<!--
+## swim-map
+
+`swim-kpi-card` is a component for rendering a Swim service aggregation data.
+
+Example:
+
+      <swim-kpi-card kpi="totalVehicles"
+                   title="Total Vehicles"
+                   point-label="Buses"
+                   id="totalVehicles"
+                   host="ws://city.swim.services"
+                   node="country/us"
+                   lane="country/vehicleCounts">
+
+      </swim-kpi-card>
+
+@demo bower_components/swim-kpi-card/demo/index.html
+-->
+
+<dom-module id="swim-kpi-card">
+  <template>
+    <style type="text/less">
+      /* local DOM styles go here */
+      :host {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+      }
+
+      .kpi-title {
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 300;
+      }
+
+      paper-card {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.9);
+        margin: 0;
+        color: #4a4a4a;
+      }
+
+      .kpi-point-value {
+        font-size: 55px;
+        font-weight: 300;
+        line-height: 1;
+        text-align: center;
+      }
+
+      .kpi-point-label {
+        font-size: 14px;
+        font-weight: 300;
+        text-align: right;
+      }
+
+      .card-content {
+        padding-top: 0;
+      }
+
+      paper-progress {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+      }
+
+      paper-progress {
+        --paper-progress-height: 8px;
+        --paper-progress-active-color: cornflowerblue;
+      }
+
+      iron-icon {
+        height: 48px;
+        width: 48px;
+      }
+
+      .chart {
+        position: absolute !important;
+        width: 168px;
+        height: 72px;
+        bottom: 8px;
+        right: 8px;
+      }
+    </style>
+
+    <!-- local DOM goes here -->
+    <paper-card>
+
+      <div class="kpi-title">{{title}}</div>
+
+      <div class="card-content">
+
+        <div class="kpi-point-value">{{meter}}</div>
+
+        <div class="kpi-point-label">{{pointLabel}}</div>
+
+      </div>
+
+      <!--<iron-icon icon="icons:arrow-drop-up" hidden="{{showIcon}}"></iron-icon>-->
+      <!--<iron-icon icon="icons:arrow-drop-down" hidden="{{!showIcon}}"></iron-icon>-->
+
+      <!--<div id="chart_{{id}}" class="chart" mood="{{mood}}">-->
+      <!--&lt;!&ndash; Spark chart rendered here &ndash;&gt;-->
+      <!--</div>-->
+
+      <paper-progress value="{{progress}}"></paper-progress>
+
+    </paper-card>
+
+  </template>
+
+  <script>
+
+
+    Polymer({
+
+      is: 'swim-kpi-card',
+
+      properties: {
+        id: String,
+        title: String,
+        meter: {
+          type: Number,
+          value: 0
+        },
+        showIcon: {
+          type: Boolean,
+          value: false
+        },
+        progress: {
+          type: Number,
+          value: 100
+        },
+        kpi: String,
+        pointLabel: String,
+        mood: {
+          type: Number,
+          value: 0
+        },
+        moodText: {
+          type: String,
+          value: '#4a4a4a'
+        },
+        host: String,
+        node: String,
+        lane: String,
+        regionId: String
+      },
+
+      _moodColor: function (value) {
+
+        if (value <= 30) {
+          this.firstElementChild.style.backgroundColor = 'red';
+          this.firstElementChild.style.color = 'white';
+          this.moodText = 'white';
+        } else {
+          this.firstElementChild.style.backgroundColor = 'white';
+          this.firstElementChild.style.color = '#4a4a4a';
+          this.moodText = '#4a4a4a';
+
+        }
+        this._chart(null, this.moodText);
+      },
+
+      //TODO: Create Polymer element for necessary charts.
+      _chart: function (data, mood) {
+
+        //TODO: Add an independent mood function for color change.
+
+        const chart = c3.generate({
+          bindto: '#chart_' + this.id,
+          data: {
+            colors: {
+              trend: mood
+            },
+            columns: [
+              ['trend', 30, 200, 100, 400, 150, 250, 100, 400, 150, 250]
+            ]
+          },
+          size: {
+            width: 168,
+            height: 72
+          },
+          padding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+          },
+          axis: {
+            x: {
+              show: false
+            },
+            y: {
+              show: false
+            }
+          },
+          legend: {
+            show: false
+          }
+        });
+
+
+        //TODO: Add an independent data load function for the trend/spark chart.
+
+
+        //TODO: Move to independent update function for the trend/spark chart.
+        setTimeout(function () {
+          chart.load({
+            columns: [
+              ['trend', 230, 190, 300, 500, 300, 400, 230, 190, 300, 500]
+            ]
+          });
+        }, 3000);
+
+      },
+
+      _linkKpi: function () {
+
+        const _self = this;
+        let host = this.host;
+        let node = this.node;
+        let lane = this.lane;
+        let regionId = this.regionId;
+
+        _self._chart();
+        _self.link = swim.downlink()
+          .host(host)
+          .node(node)
+          .lane(lane)
+          .onEvent(function (eventMessage) {
+            if (regionId) {
+              if (eventMessage.body.regionId === regionId) {
+                _self.meter = eventMessage.body.count;
+              }
+            } else {
+              _self.meter = eventMessage.body[0];
+            }
+          })
+          .syncMap();
+      },
+
+      attached: function () {
+        const _self = this;
+
+        setTimeout(function () {
+
+          _self._linkKpi();
+
+        }, 5000)
+      },
+
+      detached: function () {
+
+
+      }
+
+    });
+
+  </script>
+
+</dom-module>

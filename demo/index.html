@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>swim-kpi-card demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../swim-kpi-card/swim-kpi-card.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+
+    <style>
+      .centered:not([style-scope]):not(.style-scope) {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .info {
+        margin-bottom: 12px;
+      }
+      swim-kpi-card {
+        width: 240px;
+        margin-left: 35%;
+
+      }
+    </style>
+
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic swim-kpi-card demo</h3>
+      <demo-snippet>
+        <template>
+          <swim-kpi-card kpi="totalVehicles"
+                         title="Total Vehicles"
+                         point-label="Buses"
+                         id="totalVehicles"
+                         host="ws://city.swim.services"
+                         node="country/us"
+                         lane="country/vehicleCounts">
+
+          </swim-kpi-card>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
