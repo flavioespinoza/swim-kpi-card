@@ -1,53 +1,108 @@
-<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>swim-kpi-card demo</title>
+<head>
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- CSS -->
 
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../../swim-kpi-card/swim-kpi-card.html">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../edge-css/source/edge.css"/>
 
-    <style is="custom-style" include="demo-pages-shared-styles">
-    </style>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-s calable=no'/>
+  <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
 
-    <style>
-      .centered:not([style-scope]):not(.style-scope) {
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .info {
-        margin-bottom: 12px;
-      }
-      swim-kpi-card {
-        width: 240px;
-        margin-left: 35%;
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
 
-      }
-    </style>
 
-  </head>
-  <body>
-    <div class="vertical-section-container centered">
-      <h3>Basic swim-kpi-card demo</h3>
-      <demo-snippet>
-        <template>
-          <swim-kpi-card kpi="totalVehicles"
-                         title="Total Vehicles"
-                         point-label="Buses"
-                         id="totalVehicles"
-                         host="ws://city.swim.services"
-                         node="country/us"
-                         lane="country/vehicleCounts">
+  <link rel="import" href="../../prism-element/prism-highlighter.html">
+  <link rel="import" href="../../marked-element/marked-element.html">
+  <link rel="import" href="../../paper-card/paper-card.html">
 
-          </swim-kpi-card>
-        </template>
-      </demo-snippet>
-    </div>
-  </body>
+  <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../../swim-kpi-card/swim-kpi-card.html">
+
+  <style>
+    .swim-demo {
+      width: 600px;
+      display: block;
+      margin: 0 auto;
+    }
+    .swim-code-block {
+      background-color: #F5F5F5;
+    }
+    .swim-demo-block {
+      padding: 12px;
+    }
+    paper-card {
+      width: 100%;
+    }
+    swim-kpi-card {
+      width: 300px;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<prism-highlighter></prism-highlighter>
+
+<div class="swim-demo h100">
+
+  <section class="h100" layout="row" flex>
+
+    <paper-card class="pt12 mb12">
+
+      <div class="swim-demo-block">
+        <swim-kpi-card kpi="totalVehicles"
+                       title="Total Vehicles"
+                       point-label="Buses"
+                       id="totalVehicles"
+                       host="ws://city.swim.services"
+                       node="country/us"
+                       lane="country/vehicleCounts">
+
+        </swim-kpi-card>
+      </div>
+
+      <div class="swim-code-block p6 mt12">
+
+
+        <marked-element>
+          <div class="markdown-html"></div>
+
+          <script type="text/markdown">
+
+
+              ```html
+                <swim-kpi-card kpi="totalVehicles"
+                               title="Total Vehicles"
+                               point-label="Buses"
+                               id="totalVehicles"
+                               host="ws://city.swim.services"
+                               node="country/us"
+                               lane="country/vehicleCounts">
+
+                </swim-kpi-card>
+
+              ```
+        </script>
+        </marked-element>
+      </div>
+
+
+    </paper-card>
+
+
+  </section>
+
+</div>
+
+
+</body>
 </html>
