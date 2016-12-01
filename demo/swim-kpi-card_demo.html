@@ -10,41 +10,24 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../../edge-css/source/edge.css"/>
+  <link rel="stylesheet" href="../../swim-polymer/swim-demo.css"/>
 
-  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-s calable=no'/>
+
+  <script src="../../jquery/dist/jquery.js"></script>
+  <script src="../../swim-polymer/swim-demo.js"></script>
+
   <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
 
   <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
 
-
   <link rel="import" href="../../prism-element/prism-highlighter.html">
   <link rel="import" href="../../marked-element/marked-element.html">
   <link rel="import" href="../../paper-card/paper-card.html">
+  <link rel="import" href="../../paper-button/paper-button.html">
+
 
   <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
   <link rel="import" href="../../swim-kpi-card/swim-kpi-card.html">
-
-  <style>
-    .swim-demo {
-      width: 600px;
-      display: block;
-      margin: 0 auto;
-    }
-    .swim-code-block {
-      background-color: #F5F5F5;
-    }
-    .swim-demo-block {
-      padding: 12px;
-    }
-    paper-card {
-      width: 100%;
-    }
-    swim-kpi-card {
-      width: 300px;
-      display: block;
-      margin: 0 auto;
-    }
-  </style>
 
 </head>
 
@@ -56,31 +39,33 @@
 
   <section class="h100" layout="row" flex>
 
-    <paper-card class="pt12 mb12">
+    <div class="pos-rel mb12">
+      <h3 class="mt24">Basic swim-kpi-card</h3>
 
-      <div class="swim-demo-block">
-        <swim-kpi-card kpi="totalVehicles"
-                       title="Total Vehicles"
-                       point-label="Buses"
-                       id="totalVehicles"
-                       host="ws://city.swim.services"
-                       node="country/us"
-                       lane="country/vehicleCounts">
+      <paper-card class="mb12">
 
-        </swim-kpi-card>
-      </div>
+        <div class="swim-demo-block">
+          <swim-kpi-card id="copyTarget"
+                         kpi="totalVehicles"
+                         title="Total Vehicles"
+                         point-label="Buses"
+                         id="totalVehicles"
+                         host="ws://city.swim.services"
+                         node="country/us"
+                         lane="country/vehicleCounts">
 
-      <div class="swim-code-block p6 mt12">
+          </swim-kpi-card>
+        </div>
 
+        <div class="swim-code-block p6 mt12">
 
-        <marked-element>
-          <div class="markdown-html"></div>
+          <marked-element>
+            <div class="markdown-html"></div>
 
-          <script type="text/markdown">
-
-
+            <script type="text/markdown">
               ```html
-                <swim-kpi-card kpi="totalVehicles"
+                <swim-kpi-card id="copyTarget"
+                               kpi="totalVehicles"
                                title="Total Vehicles"
                                point-label="Buses"
                                id="totalVehicles"
@@ -91,13 +76,16 @@
                 </swim-kpi-card>
 
               ```
-        </script>
-        </marked-element>
-      </div>
+          </script>
+          </marked-element>
 
+        </div>
 
-    </paper-card>
+      </paper-card>
 
+      <paper-button class="copy-btn pos-abs r0" onclick="getDomElement('copyTarget')" raised>Copy to clipboard</paper-button>
+
+    </div>
 
   </section>
 
