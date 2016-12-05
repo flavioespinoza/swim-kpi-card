@@ -12,10 +12,8 @@
   <link rel="stylesheet" href="../../edge-css/source/edge.css"/>
   <link rel="stylesheet" href="../../swim-polymer/swim-demo.css"/>
 
-
   <script src="../../jquery/dist/jquery.js"></script>
-  <script src="../../swim-polymer/swim-demo.js"></script>
-
+  <script src="../../swim-polymer/swim-clipboard.js"></script>
   <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
 
   <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
@@ -25,15 +23,24 @@
   <link rel="import" href="../../paper-card/paper-card.html">
   <link rel="import" href="../../paper-button/paper-button.html">
 
-
-  <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
   <link rel="import" href="../../swim-kpi-card/swim-kpi-card.html">
 
 </head>
 
-<body>
+<body id="swimKpiDemo">
 
 <prism-highlighter></prism-highlighter>
+
+<div class="swim-demo h100">
+  <h3 class="mt24">swim-kpi-card dependencies</h3>
+
+  <paper-card class="swim-code-block p6">
+		<pre class="prettyprint"><code class="hljs xml">  <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"bower_components/webcomponentsjs/webcomponents-lite.min.js"</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">"import"</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"bower_components/swim-kpi-card/swim-kpi-card.html"</span>&gt;</span></code></pre>
+  </paper-card>
+
+</div>
 
 <div class="swim-demo h100">
 
@@ -45,30 +52,30 @@
       <paper-card class="mb12">
 
         <div class="swim-demo-block">
-          <swim-kpi-card id="copyTarget"
-                         kpi="totalVehicles"
-                         title="Total Vehicles"
-                         point-label="Buses"
-                         id="totalVehicles"
-                         host="ws://city.swim.services"
-                         node="country/us"
-                         lane="country/vehicleCounts">
-
-          </swim-kpi-card>
+          <div id="demo_1" class="demo-container">
+            <!-- The HTML in the <marked-element> will be rendered here. -->
+          </div>
         </div>
 
-        <div class="swim-code-block p6 mt12">
+        <div class="swim-code-block p6 mt12 pos-rel">
 
-          <marked-element>
+          <paper-button id="copyClipBtn_1" class="bd-clipboard pos-abs r12 t12" raised>
+            <span class="btn-clipboard"
+                  title="" data-original-title="Copy to clipboard"
+                  aria-describedby="tooltip106901">Copy</span>
+          </paper-button>
+
+          <marked-element id="markedElement_1">
             <div class="markdown-html"></div>
 
             <script type="text/markdown">
+
               ```html
-                <swim-kpi-card id="copyTarget"
+
+                <swim-kpi-card id="kpi_1"
                                kpi="totalVehicles"
                                title="Total Vehicles"
                                point-label="Buses"
-                               id="totalVehicles"
                                host="ws://city.swim.services"
                                node="country/us"
                                lane="country/vehicleCounts">
@@ -76,20 +83,89 @@
                 </swim-kpi-card>
 
               ```
-          </script>
+
+            </script>
           </marked-element>
 
         </div>
 
       </paper-card>
 
-      <paper-button class="copy-btn pos-abs r0" onclick="getDomElement('copyTarget')" raised>Copy to clipboard</paper-button>
+    </div>
+
+  </section>
+
+</div>
+
+
+<!-- 2 ==================================-->
+
+<div class="swim-demo h100">
+
+  <section class="h100" layout="row" flex>
+
+    <div class="pos-rel mb12">
+      <h3 class="mt24">Other swim-kpi-card</h3>
+
+      <paper-card class="mb12">
+
+        <div class="swim-demo-block">
+          <div id="demo_2" class="demo-container">
+            <!-- The HTML in the <marked-element> will be rendered here. -->
+          </div>
+        </div>
+
+        <div class="swim-code-block p6 mt12 pos-rel">
+
+          <paper-button id="copyClipBtn_2" class="bd-clipboard pos-abs r12 t12" raised>
+            <span class="btn-clipboard"
+                  title="" data-original-title="Copy to clipboard"
+                  aria-describedby="tooltip106901">Copy</span>
+          </paper-button>
+
+          <marked-element id="markedElement_2">
+            <div class="markdown-html"></div>
+
+            <script type="text/markdown">
+
+              ```html
+
+                <swim-kpi-card id="kpi_2"
+                               kpi="totalVehicles"
+                               title="Total Vehicles"
+                               point-label="Buses"
+                               host="ws://city.swim.services"
+                               node="country/us"
+                               lane="country/vehicleCounts">
+
+                </swim-kpi-card>
+
+                <swim-kpi-card id="kpi_2a"
+                               kpi="totalVehicles"
+                               title="Total Vehicles"
+                               point-label="Buses"
+                               host="ws://city.swim.services"
+                               node="country/us"
+                               lane="country/vehicleCounts">
+
+                </swim-kpi-card>
+
+              ```
+
+            </script>
+          </marked-element>
+
+        </div>
+
+      </paper-card>
 
     </div>
 
   </section>
 
 </div>
+
+<script src="../../swim-polymer/swim-demo.js"></script>
 
 </body>
 </html>
